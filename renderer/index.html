@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Quran Journal </title>
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <img src="./images/quran-logo.png" alt="Quran Journal" class="brand-logo">
+      <h1> Q U R A N  J O U R N A L </h1>
+    </div>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="home">Home</button>
+      <button class="tab" data-tab="explore">Explore</button>
+      <button class="tab" data-tab="journal">Journal</button>
+      <button class="tab" data-tab="about">About</button>
+    </nav>
+  </header>
+
+  <main class="app-main">
+    <!-- ===== Home ===== -->
+    <section id="screen-home" class="screen active">
+      <div class="hero">
+        <div class="hero-left">
+          <h1>Quran Journal</h1>
+          <p class="lead">
+            Quran journaling is a reflective practice that allows Muslims to deepen their
+            connection with the Quran by writing down thoughts, reflections, and interpretations of its verses
+          </p>
+          <div class="cta">
+            <button class="primary tab" data-tab="explore" type="button">Start Exploring</button>
+            <button class="ghost tab" data-tab="journal" type="button">Open Journal</button>
+          </div>
+          <ul class="quick-stats">
+            <li><strong>114</strong><span>Surah</span></li>
+            <li><strong>Audio</strong><span>Mishary Al-Afasy</span></li>
+          </ul>
+        </div>
+        <div class="hero-right">
+          <img src="./images/mekkahplam.jpg" alt="Quran Journal" class="hero-img">
+        </div>
+      </div>
+
+      <!-- Home cards (klik gambar/kad terus buka tab) -->
+      <div class="home-grid">
+        <!-- Kad: Explore -->
+        <div class="card link-card" data-tab="explore">
+          <img class="card-thumb" src="./images/card-explore.jpg" alt="Explore Surah">
+          <div class="card-body">
+            <h3>Explore Surah</h3>
+            <p>Read and explore the Surahs of the Holy Quran with translations, audio recitations, 
+              and Tafsir for deeper understanding.</p>
+          </div>
+        </div>
+
+        <!-- Kad: Journal -->
+        <div class="card link-card" data-tab="journal">
+          <img class="card-thumb" src="./images/card-journal.jpg" alt="Journal Reflections">
+          <div class="card-body">
+            <h3>Journal Reflections</h3>
+            <p>Save your favorite verses, titles, and personal reflections.</p>
+          </div>
+        </div>
+
+        <!-- Kad: About -->
+        <div class="card link-card" data-tab="about">
+          <img class="card-thumb" src="./images/card-about.jpg" alt="About">
+          <div class="card-body">
+            <h3>About</h3>
+            <p>A peaceful space to read, listen, and reflect upon the Quran anywhere, anytime.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Explore ===== -->
+    <section id="screen-explore" class="screen">
+      <div class="explore-split">
+        <div id="viewer" class="card viewer hidden">
+          <div class="viewer-head">
+            <div>
+              <h2 id="viewerTitle">Surah</h2>
+              <div id="viewerMeta" class="meta"></div>
+            </div>
+            <div class="row gap">
+              <input id="searchAyah" placeholder="Search ayah (Arabic/English)" />
+              <button id="btnPlayAll" class="primary">Play All</button>
+              <button id="btnPauseResume">Pause</button>
+            </div>
+          </div>
+          <div id="ayahList" class="ayah-list"></div>
+        </div>
+
+        <aside class="card sidebar">
+          <h3 class="sidebar-title">Browse Surahs</h3>
+          <div class="row gap">
+            <input id="searchInput" placeholder="Search surah (Arabic/English)" />
+            <button id="btnReset" class="ghost small">Reset</button>
+          </div>
+          <ul id="surahGrid" class="grid-cards compact"></ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== Journal ===== -->
+    <section id="screen-journal" class="screen">
+      <div class="grid grid-2">
+        <div class="card">
+          <h2>Create / Edit Note</h2>
+          <form id="noteForm">
+            <input type="hidden" id="noteId" />
+            <label>Surah</label>
+            <select id="noteSurah"></select>
+            <label>Ayah</label>
+            <input id="noteAyah" type="number" min="1" />
+            <label>Title</label>
+            <input id="noteTitle" placeholder="Reflection title" />
+            <label>Reflection</label>
+            <textarea id="noteBody" rows="6" placeholder="Write your reflection…"></textarea>
+            <div class="row gap">
+              <button type="submit" class="primary">Save</button>
+              <button type="button" id="btnNew">New</button>
+              <button type="button" id="btnDelete" class="danger" disabled>Delete</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2>My Notes</h2>
+          <div class="row gap">
+            <select id="filterSurah"><option value="">All surah</option></select>
+            <input id="filterText" placeholder="Filter notes by keyword" />
+          </div>
+          <ul id="notesList" class="notes"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Detail ===== -->
+    <section id="screen-detail" class="screen">
+      <div class="card">
+        <div class="row gap" style="justify-content:space-between">
+          <button id="btnBackToExplore" class="ghost" style="width:auto" type="button">← Back to Surah</button>
+          <div class="meta" id="dMeta"></div>
+        </div>
+
+        <h2 id="dTitle">Ayah Detail</h2>
+        <div id="dArabic" class="ar"></div>
+        <div id="dMs" class="tr ms"></div>
+        <div id="dEn" class="tr en"></div>
+
+        <div class="row gap">
+          <button id="dPlay" class="primary" style="width:auto" type="button">Play</button>
+          <button id="dPauseResume" style="width:auto" type="button">Pause</button>
+          <button id="dToNote" style="width:auto" type="button">+ Note</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section id="screen-about" class="screen">
+      <div class="about">
+        <h2>About Quran Journal</h2>
+        <p>
+         Quran Journal is a digital platform designed to help users read, explore, and reflect on the Holy Quran.
+        It offers features such as Surah exploration, verse translation, audio recitations, and personal journaling.
+        </p>
+
+        <div class="about-cards">
+          <div class="card">
+            <h4>Main Features</h4>
+            <ul>
+              <li>📚 Explore Surahs with translation and audio recitation</li>
+              <li>🖋️ Write personal reflections</li>
+              <li>🔍 Search and filter notes easily</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Vision</h4>
+            <ul>
+              <li>Our mission is to make Quran study more accessible and meaningful by combining 
+                technology with reflection and journaling.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Qoute</h4>
+            <p>So remember Me; I will remember you.” (Surah Al-Baqarah, 2:152)
+            </p>
+          </div>
+        </div>
+
+        <div class="about-footer">
+          <p>May your heart find peace through the words of Allah.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <small></small>
+  </footer>
+
+  <audio id="globalAudio" preload="none"></audio>
+
+  
+  <script>
+    document.addEventListener('click', (e)=>{
+      const btn = e.target.closest('#btnResume');
+      if(!btn) return;
+      if (window.S?.currentId) {
+        window.openSurah(window.S.currentId);
+      } else {
+        document.querySelector('.tab[data-tab="explore"]').click();
+      }
+    });
+  </script>
+
+
+  <script>
+    
+    document.addEventListener('click', function(e){
+      const card = e.target.closest('.link-card');
+      if (!card) return;
+      const tab = card.dataset.tab; 
+      const btn = document.querySelector('.tab[data-tab="'+tab+'"]');
+      if (btn) btn.click();
+    });
+
+  
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.link-card .card-thumb')
+        .forEach(function(img){ img.style.pointerEvents = 'none'; });
+    });
+  </script>
+
+  <script src="./renderer.js"></script>
+</body>
+</html>
