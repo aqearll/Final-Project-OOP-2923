@@ -1,0 +1,14 @@
+{
+  "name": "quran-journal-electron",
+  "version": "1.0.0",
+  "description": "Quran Journal",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "type": "commonjs",
+  "devDependencies": {
+    "electron": "^38.4.0",
+    "electron-packager": "^17.1.2"
+  }
+}
